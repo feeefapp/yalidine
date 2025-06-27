@@ -1,10 +1,12 @@
-# Yalidine SDK
+# Yalidine SDK (not official)
 
-[![npm version](https://badge.fury.io/js/@yalidine/sdk.svg)](https://badge.fury.io/js/@yalidine/sdk)
+[![npm version](https://badge.fury.io/js/yalidine.svg)](https://badge.fury.io/js/yalidine)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A modern, type-safe JavaScript/TypeScript SDK for interacting with Yalidine and Guepex delivery APIs. Works seamlessly in both browser and Node.js environments.
+> this is not the official Yalidine SDK, this is a community-driven SDK build by feeef.org team, we will try to keep it up-to-date with the latest Yalidine and Guepex APIs. contributions and feedback are welcome!
+
+A type-safe JavaScript/TypeScript SDK for interacting with Yalidine and Guepex delivery APIs. Works seamlessly in both browser and Node.js environments.
 
 ## 🚀 Features
 
@@ -20,17 +22,17 @@ A modern, type-safe JavaScript/TypeScript SDK for interacting with Yalidine and 
 ## 📦 Installation
 
 ```bash
-npm install @yalidine/sdk
+npm install yalidine
 # or
-yarn add @yalidine/sdk
+yarn add yalidine
 # or
-pnpm add @yalidine/sdk
+pnpm add yalidine
 ```
 
 ## 🏁 Quick Start
 
 ```typescript
-import { Yalidine, YalidineMemoryDatabase } from '@yalidine/sdk'
+import { Yalidine, YalidineMemoryDatabase } from 'yalidine'
 
 // Initialize the SDK
 const config = {
@@ -88,6 +90,7 @@ interface YalidineConfig {
   baseURL?: string // Optional custom base URL
   timeout?: number // Request timeout in ms (default: 30000)
   retries?: number // Number of retries (default: 3)
+  cacheTTL?: number // Cache TTL in seconds (default: 3600*24) WIP
 }
 ```
 
@@ -105,6 +108,9 @@ const localStorageDb = new YalidineLocalStorageDatabase('yalidine-cache')
 
 // Auto-detect best database for environment
 const autoDb = YalidineDatabase.auto()
+
+// file-based database for Node.js (soon in separate package)
+const fileDb = new YalidineFileDatabase('path/to/cache.json')
 ```
 
 ### Parcels API
@@ -141,7 +147,7 @@ await yalidine.parcels.delete('yal-123456')
 const labelUrl = await yalidine.parcels.getLabel('yal-123456')
 ```
 
-### Histories API
+### Histories API (WIP)
 
 ```typescript
 // Get parcel history
@@ -153,19 +159,19 @@ const history = await yalidine.histories.list({
 const updates = await yalidine.histories.getUpdates(['yal-123456', 'yal-789012'])
 ```
 
-### Geographic Data API
+### Data API
 
 ```typescript
 // Get all wilayas (cached automatically)
 const wilayas = await yalidine.wilayas.list()
 
-// Get communes for a wilaya
+// Get communes for a wilaya (will be cached automatically in next updates)
 const communes = await yalidine.communes.list({ wilaya_id: 16 })
 
-// Get delivery centers
+// Get delivery centers (will be cached automatically in next updates)
 const centers = await yalidine.centers.list({ wilaya_id: 16 })
 
-// Calculate delivery fees
+// Calculate delivery fees (will be cached automatically)
 const fees = await yalidine.fees.calculate({
   from_wilaya_id: 16,
   to_wilaya_id: 19,
@@ -177,7 +183,7 @@ const fees = await yalidine.fees.calculate({
 ### Error Handling
 
 ```typescript
-import { YalidineError, YalidineAPIError } from '@yalidine/sdk'
+import { YalidineError, YalidineAPIError } from 'yalidine'
 
 try {
   const parcel = await yalidine.parcels.create(invalidData)
@@ -209,7 +215,7 @@ console.log('Remaining requests:', quota)
 ### Custom Database Implementation
 
 ```typescript
-import { YalidineDatabase } from '@yalidine/sdk'
+import { YalidineDatabase } from 'yalidine'
 
 class CustomDatabase implements YalidineDatabase {
   async get<T>(key: string): Promise<T | null> {
@@ -230,10 +236,12 @@ class CustomDatabase implements YalidineDatabase {
 }
 ```
 
-### React Integration
+### React Integration (WIP)
+
+this is just a basic example, more hooks and features will be added in the future
 
 ```typescript
-import { useYalidine } from '@yalidine/sdk/react';
+import { useYalidine } from 'yalidine/react';
 
 function MyComponent() {
   const { yalidine, loading, error } = useYalidine({
@@ -270,7 +278,7 @@ npm run test:coverage
 
 ## 📖 Documentation
 
-Visit our [documentation site](https://yalidine-sdk.dev) for comprehensive guides, API reference, and examples.
+Visit the yalidine [documentation site](https://feeef.org) for comprehensive guides, API reference, and examples.
 
 ## 🤝 Contributing
 
@@ -278,15 +286,14 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📜 License
 
-MIT © [Yalidine Team](https://yalidine.com)
+MIT © [feeef](https://feeef.org)
 
 ## 🔗 Links
 
-- [Yalidine API Documentation](https://yalidine.app/docs)
-- [Guepex API Documentation](https://guepex.app/docs)
-- [GitHub Repository](https://github.com/yalidine/sdk)
-- [npm Package](https://www.npmjs.com/package/@yalidine/sdk)
+- [Yalidine/Guepex API Documentation](https://guepex.app/app/dev/docs/api/index.php) (you must log in to access the API documentation)
+- [GitHub Repository](https://github.com/feeefapp/yalidine)
+- [npm Package](https://www.npmjs.com/package/yalidine)
 
 ---
 
-Made with ❤️ by the Yalidine team
+Made with ❤️ by @mohamadlounnas at feeef.org

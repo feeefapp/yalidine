@@ -1,4 +1,4 @@
-import { YalidineDatabase } from '../types'
+import { YalidineDatabase } from '../types.js'
 
 interface CacheEntry<T> {
   value: T

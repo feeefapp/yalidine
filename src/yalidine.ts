@@ -5,10 +5,10 @@
  * and manages authentication, caching, and configuration.
  */
 
-import { HTTPClient } from './http/client'
-import { ParcelsAPI } from './api/parcels'
-import { YalidineMemoryDatabase } from './database/memory'
-import { YalidineConfig, YalidineDatabase, Agent, QuotaStatus, YalidineError } from './types'
+import { ParcelsAPI } from './api/parcels.js'
+import { YalidineMemoryDatabase } from './database/memory.js'
+import { HTTPClient } from './http/client.js'
+import { YalidineConfig, YalidineDatabase, YalidineError, QuotaStatus, Agent } from './types.js'
 
 /**
  * Main Yalidine SDK class

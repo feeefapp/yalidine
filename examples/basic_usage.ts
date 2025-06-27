@@ -5,7 +5,9 @@
  * Make sure to replace API credentials with your actual values.
  */
 
-import { Yalidine, YalidineMemoryDatabase, CreateParcelRequest, YalidineError } from '../src'
+import { YalidineMemoryDatabase } from '../src/index.js'
+import { CreateParcelRequest, YalidineError } from '../src/types.js'
+import { Yalidine } from '../src/yalidine.js'
 
 // Configuration examples
 async function initializationExamples() {

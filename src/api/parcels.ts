@@ -4,7 +4,7 @@
  * Handles all parcel-related operations including create, read, update, delete
  */
 
-import { HTTPClient } from '../http/client'
+import { HTTPClient } from '../http/client.js'
 import {
   Parcel,
   CreateParcelRequest,
@@ -13,7 +13,7 @@ import {
   CreateParcelResponse,
   DeleteParcelResponse,
   APIResponse,
-} from '../types'
+} from '../types.js'
 
 /**
  * Parcels API class for managing parcel operations

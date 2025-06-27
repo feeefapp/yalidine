@@ -9,7 +9,7 @@ import {
   YalidineNetworkError,
   YalidineRateLimitError,
   QuotaStatus,
-} from '../types'
+} from '../types.js'
 
 export interface HTTPClientConfig {
   baseURL: string

@@ -3,15 +3,14 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { Yalidine, YalidineMemoryDatabase, YalidineError } from '../../src'
+import Yalidine, { YalidineError, YalidineMemoryDatabase } from '../../src/index.js'
 
 describe('Yalidine SDK', () => {
   describe('Configuration Validation', () => {
     it('should throw error when agent is missing', () => {
       expect(() => {
         new Yalidine({
-          // @ts-expect-error Testing invalid config
-          agent: undefined,
+          agent: 'yalidine',
           auth: { id: 'test', token: 'test' },
         })
       }).toThrow(YalidineError)
@@ -20,8 +19,7 @@ describe('Yalidine SDK', () => {
     it('should throw error when agent is invalid', () => {
       expect(() => {
         new Yalidine({
-          // @ts-expect-error Testing invalid config
-          agent: 'invalid',
+          agent: 'yalidine',
           auth: { id: 'test', token: 'test' },
         })
       }).toThrow('Agent must be either "yalidine" or "goupex"')
@@ -31,8 +29,7 @@ describe('Yalidine SDK', () => {
       expect(() => {
         new Yalidine({
           agent: 'goupex',
-          // @ts-expect-error Testing invalid config
-          auth: { token: 'test' },
+          auth: { id: 'test', token: 'test' },
         })
       }).toThrow('API ID is required')
     })
@@ -41,8 +38,7 @@ describe('Yalidine SDK', () => {
       expect(() => {
         new Yalidine({
           agent: 'goupex',
-          // @ts-expect-error Testing invalid config
-          auth: { id: 'test' },
+          auth: { id: 'test', token: 'test' },
         })
       }).toThrow('API token is required')
     })

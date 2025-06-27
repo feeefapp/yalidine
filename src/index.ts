@@ -8,19 +8,19 @@
  */
 
 // Main SDK class
-export { Yalidine } from './yalidine'
+export { Yalidine } from './yalidine.js'
 
 // Database implementations
-export { YalidineMemoryDatabase } from './database/memory'
+export { YalidineMemoryDatabase } from './database/memory.js'
 
 // API classes
-export { ParcelsAPI } from './api/parcels'
+export { ParcelsAPI } from './api/parcels.js'
 
 // HTTP client
-export { HTTPClient } from './http/client'
+export { HTTPClient } from './http/client.js'
 
 // Types and interfaces
-export * from './types'
+export * from './types.js'
 
 // Convenience exports for common use cases
 export type {
@@ -33,14 +33,16 @@ export type {
   ParcelFilters,
   APIResponse,
   QuotaStatus,
-} from './types'
+  CreateParcelResponse,
+  DeleteParcelResponse,
+} from './types.js'
 
 export {
   YalidineError,
   YalidineAPIError,
   YalidineNetworkError,
   YalidineRateLimitError,
-} from './types'
+} from './types.js'
 
 // Default export
-export { Yalidine as default } from './yalidine'
+export { Yalidine as default } from './yalidine.js'

@@ -5,7 +5,7 @@ This directory contains practical examples showing how to use the Yalidine SDK.
 ## Basic Usage
 
 ```typescript
-import { Yalidine, YalidineMemoryDatabase } from '@yalidine/sdk'
+import { Yalidine, YalidineMemoryDatabase } from 'yalidine'
 
 // Initialize the SDK
 const yalidine = new Yalidine({
@@ -101,7 +101,7 @@ const deleteResults = await yalidine.parcels.deleteBulk(['yal-123456', 'yal-7890
 ## Error Handling
 
 ```typescript
-import { YalidineError, YalidineAPIError, YalidineRateLimitError } from '@yalidine/sdk'
+import { YalidineError, YalidineAPIError, YalidineRateLimitError } from 'yalidine'
 
 try {
   const parcel = await yalidine.parcels.create(invalidData)
@@ -171,7 +171,7 @@ import {
   YalidineMemoryDatabase,
   YalidineIndexedDBDatabase,
   YalidineLocalStorageDatabase,
-} from '@yalidine/sdk'
+} from 'yalidine'
 
 // Memory database (default, data lost on restart)
 const memoryDb = new YalidineMemoryDatabase()
@@ -191,7 +191,7 @@ const autoDb = YalidineDatabase.auto()
 ### Node.js
 
 ```typescript
-import { Yalidine } from '@yalidine/sdk'
+import { Yalidine } from 'yalidine'
 
 const yalidine = new Yalidine({
   agent: 'goupex',
@@ -202,7 +202,7 @@ const yalidine = new Yalidine({
 ### Browser
 
 ```typescript
-import { Yalidine, YalidineIndexedDBDatabase } from '@yalidine/sdk'
+import { Yalidine, YalidineIndexedDBDatabase } from 'yalidine'
 
 const yalidine = new Yalidine({
   agent: 'goupex',
@@ -214,7 +214,7 @@ const yalidine = new Yalidine({
 ### React
 
 ```typescript
-import { useYalidine } from '@yalidine/sdk/react';
+import { useYalidine } from 'yalidine/react';
 
 function MyComponent() {
   const { yalidine, loading, error } = useYalidine({

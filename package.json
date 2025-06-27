@@ -1,7 +1,7 @@
 {
   "name": "yalidine",
-  "description": "yalidine sdk for javascript",
-  "version": "0.0.1",
+  "description": "non-official, type-safe JavaScript/TypeScript SDK for Yalidine and Guepex delivery APIs, by feeef.org team",
+  "version": "0.1.0",
   "main": "build/index.js",
   "type": "module",
   "files": [
@@ -62,13 +62,13 @@
   },
   "author": "mohamadlounnas,feeefnet",
   "license": "MIT",
-  "homepage": "https://github.com/feeefnet/feeef.js#readme",
+  "homepage": "https://github.com/feeefapp/yalidine#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/feeefnet/feeef.js.git"
+    "url": "git+https://github.com/feeefapp/yalidine.git"
   },
   "bugs": {
-    "url": "https://github.com/feeefnet/feeef.js/issues"
+    "url": "https://github.com/feeefapp/yalidine/issues"
   },
   "keywords": [],
   "types": "./build/index.d.ts",
