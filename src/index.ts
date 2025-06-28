@@ -15,6 +15,7 @@ export { YalidineMemoryDatabase } from './database/memory.js'
 
 // API classes
 export { ParcelsAPI } from './api/parcels.js'
+export { HistoriesAPI } from './api/histories.js'
 
 // HTTP client
 export { HTTPClient } from './http/client.js'
@@ -31,6 +32,8 @@ export type {
   CreateParcelRequest,
   UpdateParcelRequest,
   ParcelFilters,
+  History,
+  HistoryFilters,
   APIResponse,
   QuotaStatus,
   CreateParcelResponse,

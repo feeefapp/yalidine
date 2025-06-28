@@ -13,7 +13,6 @@ import {
   CreateParcelResponse,
   DeleteParcelResponse,
   APIResponse,
-  YalidineError,
 } from '../types.js'
 
 /**

@@ -147,16 +147,103 @@ await yalidine.parcels.delete('yal-123456')
 const labelUrl = await yalidine.parcels.getLabel('yal-123456')
 ```
 
-### Histories API (WIP)
+### Histories API
+
+The Histories API provides comprehensive access to parcel status history and delivery tracking information.
 
 ```typescript
-// Get parcel history
-const history = await yalidine.histories.list({
+// List all histories with optional filters
+const histories = await yalidine.histories.list({
+  page: 1,
+  page_size: 50,
+  status: ['Livré', 'Expédié'],
   tracking: 'yal-123456',
+  date_status: '2024-01-01,2024-01-31',
 })
 
-// Get delivery status updates
-const updates = await yalidine.histories.getUpdates(['yal-123456', 'yal-789012'])
+// Find history for a specific parcel
+const parcelHistory = await yalidine.histories.find('yal-123456')
+
+// Find histories for multiple parcels
+const multipleHistories = await yalidine.histories.findMultiple([
+  'yal-123456',
+  'yal-789012',
+])
+
+// Filter by status
+const deliveredHistories = await yalidine.histories.byStatus('Livré')
+
+// Filter by date range
+const dateRangeHistories = await yalidine.histories.byDateRange(
+  '2024-01-01',
+  '2024-01-31'
+)
+
+// Filter by specific date
+const dateHistories = await yalidine.histories.byDate('2024-01-15')
+
+// Filter by delivery failure reason
+const failedHistories = await yalidine.histories.byReason('Client absent (échoué)')
+
+// Get latest status for a parcel
+const latestStatus = await yalidine.histories.getLatestStatus('yal-123456')
+console.log(`Latest status: ${latestStatus?.status}`)
+
+// Get complete timeline for a parcel (chronological order)
+const timeline = await yalidine.histories.getTimeline('yal-123456')
+timeline.forEach((entry) => {
+  console.log(`${entry.date_status}: ${entry.status}`)
+})
+
+// Get statistics about histories
+const stats = await yalidine.histories.getStats()
+console.log(`Total entries: ${stats.total}`)
+console.log(`Status counts:`, stats.statusCounts)
+console.log(`Wilaya counts:`, stats.wilayaCounts)
+console.log(`Center counts:`, stats.centerCounts)
+
+// Advanced search with custom filters
+const searchResults = await yalidine.histories.search({
+  status: 'Livré',
+  date_status: '2024-01-01,2024-01-31',
+  fields: 'tracking,status,date_status',
+  order_by: 'date_status',
+  desc: true,
+})
+```
+
+#### History Filters
+
+```typescript
+interface HistoryFilters {
+  tracking?: string | string[]           // Filter by tracking number(s)
+  status?: ParcelStatus | ParcelStatus[] // Filter by status
+  date_status?: string                   // Filter by date (YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD)
+  reason?: string | string[]             // Filter by delivery failure reason
+  fields?: string                        // Specify which fields to return
+  page?: number                          // Page number
+  page_size?: number                     // Results per page
+  order_by?: 'date_status' | 'tracking' | 'status' | 'reason'
+  desc?: boolean                         // Descending order
+  asc?: boolean                          // Ascending order
+}
+```
+
+#### History Object
+
+```typescript
+interface History {
+  date_status: string    // Status creation date (YYYY-MM-DD HH:MM:SS)
+  tracking: string       // Parcel tracking number
+  status: ParcelStatus   // Current status
+  reason: string         // Failure reason (if applicable)
+  center_id: number      // Center ID where status occurred
+  center_name: string    // Center name
+  wilaya_id: number      // Wilaya ID
+  wilaya_name: string    // Wilaya name
+  commune_id: number     // Commune ID
+  commune_name: string   // Commune name
+}
 ```
 
 ### Data API
@@ -201,10 +288,10 @@ try {
 
 The SDK automatically handles rate limiting based on the API response headers:
 
-- `x-second-quota-left`
-- `x-minute-quota-left`
-- `x-hour-quota-left`
-- `x-day-quota-left`
+- `second-quota-left`
+- `minute-quota-left`
+- `hour-quota-left`
+- `day-quota-left`
 
 ```typescript
 // Check current quota

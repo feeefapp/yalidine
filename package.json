@@ -1,7 +1,7 @@
 {
   "name": "yalidine",
   "description": "non-official, type-safe JavaScript/TypeScript SDK for Yalidine and Guepex delivery APIs, by feeef.org team",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "main": "build/index.js",
   "type": "module",
   "files": [

@@ -6,6 +6,7 @@
  */
 
 import { ParcelsAPI } from './api/parcels.js'
+import { HistoriesAPI } from './api/histories.js'
 import { YalidineMemoryDatabase } from './database/memory.js'
 import { HTTPClient } from './http/client.js'
 import { YalidineConfig, YalidineDatabase, YalidineError, QuotaStatus, Agent } from './types.js'
@@ -37,6 +38,7 @@ export class Yalidine {
 
   // API endpoints
   readonly parcels: ParcelsAPI
+  readonly histories: HistoriesAPI
 
   constructor(config: YalidineConfig) {
     // Validate configuration
@@ -66,6 +68,7 @@ export class Yalidine {
 
     // Initialize API endpoints
     this.parcels = new ParcelsAPI(this.http)
+    this.histories = new HistoriesAPI(this.http)
   }
 
   /**
