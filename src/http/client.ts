@@ -246,10 +246,10 @@ export class HTTPClient {
     }
 
     this.quotaStatus = {
-      secondQuotaLeft: getHeader('x-second-quota-left'),
-      minuteQuotaLeft: getHeader('x-minute-quota-left'),
-      hourQuotaLeft: getHeader('x-hour-quota-left'),
-      dayQuotaLeft: getHeader('x-day-quota-left'),
+      secondQuotaLeft: getHeader('second-quota-left'),
+      minuteQuotaLeft: getHeader('minute-quota-left'),
+      hourQuotaLeft: getHeader('hour-quota-left'),
+      dayQuotaLeft: getHeader('day-quota-left'),
       lastUpdate: new Date(),
     }
   }

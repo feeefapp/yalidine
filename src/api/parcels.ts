@@ -13,6 +13,7 @@ import {
   CreateParcelResponse,
   DeleteParcelResponse,
   APIResponse,
+  YalidineError,
 } from '../types.js'
 
 /**
@@ -57,8 +58,16 @@ export class ParcelsAPI {
    * console.log(`Status: ${parcel.last_status}`);
    * ```
    */
-  async find(tracking: string): Promise<Parcel> {
-    const response = await this.http.get<Parcel>(`/parcels/${tracking}`)
+  async find(tracking: string): Promise<Parcel | null> {
+    const response = await this.http.get<Parcel | any>(`/parcels/${tracking}`)
+    // if response.data is an array, return the first element
+    if (response.data.has_more !== undefined) {
+      if (response.data.data && response.data.data.length > 0) {
+        return response.data.data[0]!
+      }
+      console.error('Tracking number not found', response.data)
+      return null
+    }
     return response.data
   }
 
@@ -171,9 +180,9 @@ export class ParcelsAPI {
    * window.open(labelUrl, '_blank');
    * ```
    */
-  async getLabel(tracking: string): Promise<string> {
+  async getLabel(tracking: string): Promise<string | null> {
     const parcel = await this.find(tracking)
-    return parcel.label
+    return parcel?.label ?? null
   }
 
   /**
@@ -187,7 +196,7 @@ export class ParcelsAPI {
    * const labelsUrl = await yalidine.parcels.getLabels(['yal-123456', 'yal-789012']);
    * ```
    */
-  async getLabels(trackings: string[]): Promise<string> {
+  async getLabels(trackings: string[]): Promise<string | null> {
     // For bulk labels, we need to create a request and get the labels URL
     const filters: ParcelFilters = {
       tracking: trackings,
@@ -197,14 +206,16 @@ export class ParcelsAPI {
     const result = await this.list(filters)
 
     if (!result.data.length) {
-      throw new Error('Unable to generate labels URL')
+      console.error('Unable to generate labels URL')
+      return null
     }
 
     if (result.data.length > 0 && result.data[0]!.labels) {
       return result.data[0]!.labels
     }
 
-    throw new Error('Unable to generate labels URL')
+    console.error('Unable to generate labels URL')
+    return null
   }
 
   /**

@@ -1,0 +1,14 @@
+{
+  "name": "examples",
+  "description": "This directory contains practical examples showing how to use the Yalidine SDK.",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "yalidine": "file:.."
+  },
+  "author": "",
+  "license": "ISC"
+}
